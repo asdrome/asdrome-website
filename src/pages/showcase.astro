@@ -4,12 +4,12 @@ import Main from "../layouts/MainLayout.astro";
 import Markdown from "../components/Markdown.astro";
 import CopyRight from "../components/misc/CopyRight.astro";
 
-const aboutPost = await getEntry("specs", "about");
-const { Content } = await render(aboutPost!);
+const showcasePost = await getEntry("specs", "showcase");
+const { Content } = await render(showcasePost!);
 interface Props {
   title?: string;
   subTitle?: string;
-  bannerImage?: ImageMetadata;
+  bannerImage?: string;
   published?: Date;
 }
 const { title, subTitle, bannerImage, published } = Astro.props;

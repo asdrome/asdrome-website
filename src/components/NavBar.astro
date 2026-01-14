@@ -7,6 +7,8 @@ import SearchBar from "./SearchBar.svelte";
 import MobileSearchBar from "./MobileSearchBar.svelte";
 import "astro-pagefind";
 
+import logo from "../assets/logo-color.svg";
+import { Image } from "astro:assets";
 const navCount = YukinaConfig.navigators.length;
 ---
 
@@ -39,7 +41,14 @@ const navCount = YukinaConfig.navigators.length;
     </div>
     <a class="brand-lg" href="/">
       <div class="title space-x-2">
-        <Icon name="heroicons:home" size={32} />
+        <Image
+          src={logo}
+          alt="Asdrome Logo"
+          class="icon inline-block align-middle"
+          width={32}
+          height={32}
+          loading="eager"
+        />
         <p>{YukinaConfig.brandTitle}</p>
       </div>
     </a>
@@ -283,7 +292,7 @@ const navCount = YukinaConfig.navigators.length;
   ) as any as SVGElement;
 
   // Record the current theme
-  let currentTheme = localStorage.getItem("theme") || "light";
+  let currentTheme = localStorage.getItem("theme") || "dark";
 
   // Set theme
   const setTheme = (theme: string) => {

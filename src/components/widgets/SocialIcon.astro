@@ -8,7 +8,7 @@ export interface Props {
 const { name, link } = Astro.props;
 ---
 
-<a href={link} target="_blank">
+<a href={link} target="_blank" aria-label={name}>
   <div
     class="flex h-10 w-10 flex-col justify-center rounded-lg transition-all hover:brightness-75 dark:hover:brightness-125"
   >

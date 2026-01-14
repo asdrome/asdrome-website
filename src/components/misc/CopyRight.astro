@@ -1,9 +1,9 @@
 ---
-import { Icon } from "astro-icon/components";
 import YukinaConfig from "../../../yukina.config";
 import I18nKeys from "../../locales/keys";
 import { i18n } from "../../locales/translation";
 import { formatDate } from "../../utils/date";
+import { Image } from "astro:assets";
 
 export interface Props {
   title: string;
@@ -14,9 +14,20 @@ export interface Props {
   };
   sourceLink?: string;
   author?: string;
+  authorImage?: ImageMetadata;
 }
 
-const { title, published, license, author, sourceLink } = Astro.props;
+const { title, published, license, author, sourceLink, authorImage } =
+  Astro.props;
+
+const imagePath = YukinaConfig.avatarUrl;
+const images = import.meta.glob<{ default: ImageMetadata }>(
+  "/src/assets/*.{jpeg,jpg,png,gif,svg,webp}"
+);
+if (!images[imagePath])
+  throw new Error(
+    `"${imagePath}" does not exist in glob: "src/assets/*.{jpeg,jpg,png,gif,svg,webp}"`
+  );
 ---
 
 <div
@@ -95,11 +106,28 @@ const { title, published, license, author, sourceLink } = Astro.props;
   <div
     class="relative right-0 top-1/2 z-0 flex h-32 -translate-y-1/2 overflow-hidden lg:h-36"
   >
-    <Icon
-      name="ooui:logo-cc"
-      size={230}
-      class="absolute right-0 top-1/2 -translate-y-1/2 text-gray-300 dark:text-[var(--card-color)]"
-    />
+    {
+      authorImage && (
+        <Image
+          src={authorImage}
+          width={200}
+          height={200}
+          class="absolute right-0 top-1/2 -translate-y-1/2 text-gray-300 dark:text-[var(--card-color)]"
+          alt="authorImage"
+        />
+      )
+    }
+    {
+      !authorImage && (
+        <Image
+          src={images[imagePath]()}
+          width="200"
+          height="200"
+          class="absolute right-0 top-1/2 -translate-y-1/2 rounded-full text-gray-300 dark:text-[var(--card-color)]"
+          alt="defaultAuthor"
+        />
+      )
+    }
   </div>
 </div>
 

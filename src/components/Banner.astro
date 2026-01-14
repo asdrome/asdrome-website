@@ -1,17 +1,25 @@
 ---
+import { Image } from "astro:assets";
 import YukinaConfig from "../../yukina.config";
 import { GetCoverURLForUnspecifiedEntry } from "../utils/cover";
 
 export interface Props {
   title?: string;
   subTitle?: string;
-  bannerImage?: string;
+  bannerImage?: ImageMetadata;
   slug?: string;
 }
 const { title, subTitle, bannerImage, slug } = Astro.props;
 
 const hasTitle = title !== undefined || subTitle !== undefined;
-const hasHeaderImg = bannerImage !== undefined || slug !== undefined;
+const imagePath = "/src/assets/bmos_flower.webp";
+const images = import.meta.glob<{ default: ImageMetadata }>(
+  "/src/assets/*.{jpeg,jpg,png,gif,svg,webp}"
+);
+if (!images[imagePath])
+  throw new Error(
+    `"${imagePath}" does not exist in glob: "src/assets/*.{jpeg,jpg,png,gif,svg,webp}"`
+  );
 
 let carouselImgsList = YukinaConfig.banners;
 const carouselAnimationTime = `${carouselImgsList.length * 6}s`;
@@ -20,27 +28,27 @@ const carouselAnimationTime = `${carouselImgsList.length * 6}s`;
 <div id="banner" class="banner onload-animation-fade-in">
   <div class="transition-main banner-inner h-full w-full">
     {
-      !hasHeaderImg && (
+      !bannerImage && (
         <div class="carousel">
-          <ul id="carousel_imgs">
-            {carouselImgsList.map((img, index) => (
-              <li
-                class="item lozad"
-                style={{ animationDelay: `${index * 6}s` }}
-                data-background-image={img}
-              />
-            ))}
-          </ul>
+          <Image
+            src={images[imagePath]()}
+            alt="DefaultBanner"
+            class="cover-item lozad h-[var(--banner-height)] w-full object-cover"
+            inferSize
+            loading={"eager"}
+          />
         </div>
       )
     }
     {
-      hasHeaderImg && (
+      bannerImage && (
         <div class="cover">
-          <img
-            class="item lozad"
-            data-src={bannerImage ?? GetCoverURLForUnspecifiedEntry(slug ?? "")}
-            alt="PostCoverr"
+          <Image
+            src={bannerImage}
+            alt="Post Banner"
+            class="cover-item lozad h-[var(--banner-height)] w-full object-cover"
+            inferSize
+            loading={"eager"}
           />
         </div>
       )

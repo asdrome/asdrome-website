@@ -7,6 +7,7 @@ import { i18n } from "../locales/translation";
 import I18nKeys from "../locales/keys";
 import YukinaConfig from "../../yukina.config";
 import { formatDate } from "../utils/date";
+import { Image } from "astro:assets";
 
 export interface Props {
   id: string;
@@ -15,7 +16,7 @@ export interface Props {
   category?: string;
   tags?: string[];
   description?: string;
-  image?: string;
+  cover?: ImageMetadata;
   readingMetadata: { time: number; wordCount: number };
 }
 
@@ -23,6 +24,12 @@ const props = Astro.props;
 const entryID = IdToSlug(props.id);
 const contentUrl = `/posts/${entryID}`;
 const { time, wordCount } = props.readingMetadata;
+const imagePath = GetCoverURLForUnspecifiedEntry(entryID);
+const images = import.meta.glob<{ default: ImageMetadata }>(
+  "/src/assets/*.{jpeg,jpg,png,gif,svg,webp}"
+);
+
+let coverImageIsLocal = !props.cover && images[imagePath] ? true : false;
 ---
 
 <div
@@ -32,11 +39,39 @@ const { time, wordCount } = props.readingMetadata;
     href={contentUrl}
     class="relative h-[128px] transition-all hover:brightness-75 lg:hidden"
   >
-    <img
-      class="lozad absolute left-0 top-0 h-full w-full rounded-t-3xl object-cover lg:hidden"
-      data-src={props.image ?? GetCoverURLForUnspecifiedEntry(entryID)}
-      alt="CoverPost"
-    />
+    {
+      props.cover && (
+        <Image
+          src={props.cover}
+          alt="CoverPost"
+          class="lozad absolute left-0 top-0 h-full w-full rounded-t-3xl object-cover lg:hidden"
+          inferSize
+        />
+      )
+    }
+    {
+      coverImageIsLocal && (
+        <Image
+          src={images[imagePath]()}
+          class="lozad absolute left-0 top-0 h-full w-full rounded-t-3xl object-cover lg:hidden"
+          alt="PostCover"
+          width={400}
+          height={200}
+        />
+      )
+    }
+    {
+      !props.cover && !coverImageIsLocal && (
+        <Image
+          src={imagePath}
+          class="lozad absolute left-0 top-0 h-full w-full rounded-t-3xl object-cover lg:hidden"
+          alt="PostCover"
+          width={400}
+          height={200}
+        />
+      )
+    }
+
     <div class="absolute bottom-2 w-full">
       <div class="mx-2 flex flex-row justify-between">
         <div
@@ -146,11 +181,38 @@ const { time, wordCount } = props.readingMetadata;
     <div class="cover-container">
       <a href={contentUrl} class="cover-wrapper">
         <Icon class="right-icon" name="cuida:caret-right-outline" size={96} />
-        <img
-          class="lozad h-[212px] w-[404px] select-none rounded-r-3xl object-cover dark:brightness-90"
-          data-src={props.image ?? GetCoverURLForUnspecifiedEntry(entryID)}
-          alt="PostCover"
-        />
+        {
+          props.cover && (
+            <Image
+              src={props.cover}
+              class="lozad select-none rounded-r-3xl object-cover dark:brightness-90"
+              alt="PostCover"
+              inferSize
+            />
+          )
+        }
+        {
+          coverImageIsLocal && (
+            <Image
+              src={images[imagePath]()}
+              class="lozad h-[200px] w-[400px] select-none rounded-r-3xl object-cover dark:brightness-90"
+              alt="PostCover"
+              width={400}
+              height={200}
+            />
+          )
+        }
+        {
+          !coverImageIsLocal && (
+            <Image
+              src={imagePath}
+              class="lozad h-[200px] w-[400px] select-none rounded-r-3xl object-cover dark:brightness-90"
+              alt="PostCover"
+              width={400}
+              height={200}
+            />
+          )
+        }
       </a>
     </div>
   </div>

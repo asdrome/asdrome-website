@@ -17,7 +17,7 @@ interface Configuration {
   sign: string;
   avatarUrl: string;
 
-  socialLinks: { icon: string; link: string }[];
+  socialLinks: { name: string; icon: string; link: string }[];
 
   maxSidebarCategoryChip: number;
   maxSidebarTagChip: number;

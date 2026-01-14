@@ -18,7 +18,7 @@ if (props.lastPage <= maxVisiblePages) {
 } else {
   const startPage = Math.max(
     1,
-    props.current - Math.floor(maxVisiblePages / 2),
+    props.current - Math.floor(maxVisiblePages / 2)
   );
   const endPage = Math.min(props.lastPage, startPage + maxVisiblePages - 1);
 
@@ -26,12 +26,14 @@ if (props.lastPage <= maxVisiblePages) {
   if (startPage > 2) pages.push("...");
 
   pages.push(
-    ...Array.from({ length: endPage - startPage + 1 }, (_, i) => startPage + i),
+    ...Array.from({ length: endPage - startPage + 1 }, (_, i) => startPage + i)
   );
 
   if (endPage < props.lastPage - 1) pages.push("...");
   if (endPage < props.lastPage) pages.push(props.lastPage);
 }
+
+const currentPath = Astro.url.pathname;
 ---
 
 <div
@@ -40,8 +42,9 @@ if (props.lastPage <= maxVisiblePages) {
   class:list={[props.class]}
 >
   <a
-    href={props.prevURL}
+    href={props.prevURL ?? currentPath}
     class:list={[props.prevURL ? "button" : "button-disabled"]}
+    aria-label="Previous page"
   >
     <span>＜</span>
   </a>
@@ -55,17 +58,23 @@ if (props.lastPage <= maxVisiblePages) {
           <a
             href={page === 1 ? "/" : `/${page}`}
             class:list={[page === props.current ? "button-selected" : "button"]}
+            aria-label={
+              page === props.current
+                ? `Current page, page ${page}`
+                : `Go to page ${page}`
+            }
           >
             <span>{page}</span>
           </a>
-        ),
+        )
       )
     }
   </div>
 
   <a
-    href={props.nextURL}
+    href={props.nextURL ?? currentPath}
     class:list={[props.nextURL ? "button" : "button-disabled"]}
+    aria-label="Next page"
   >
     <span>＞</span>
   </a>

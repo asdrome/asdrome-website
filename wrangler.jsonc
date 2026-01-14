@@ -1,0 +1,5 @@
+{
+  "name": "asdrome-website",
+  "compatibility_date": "2026-01-13", // Update to the day you deploy
+  "pages_build_output_dir": "./dist"
+}
