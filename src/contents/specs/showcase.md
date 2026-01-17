@@ -5,19 +5,27 @@
 
 ---
 
-### [Project_Alpha_Name]
+### [ GODOT_RUST_TEMPLATE_v1.1 ]
 **Type:** `Godot-Rust Template` | **Status:** `STABLE`
+
 A ready to use template for developing with Rust in Godot
 * **Tech:** Godot, Rust
-* [View Source] | [Github](https://github.com/asdrome/rust-template-godot)
-* [Tutorial] | [YouTube](https://www.youtube.com/watch?v=7T7HRiR1_94)
+* `[ SOURCE ]` | [GitHub](https://github.com/asdrome/rust-template-godot)
+* `[ TUTORIAL ]` | [YouTube](https://www.youtube.com/watch?v=7T7HRiR1_94)
+> `[ AVAILABLE ]` | [Godot Asset Store](https://godotengine.org/asset-library/asset/3883) or from `[ SOURCE ]`.
 
-### [Project_Beta_Name]
-**Type:** `Godot Individual Templates Bundler` | **Status:** `IN_DEVELOPMENT`
-A web-tool to download granular installs of the official Godot Export Templates.
-* **Key Feature:** Granularity per platform and architecture.
-* **Tech:** Godot
-* [Live Demo] TBD | [DevLog] TBD
+### [ GODOT_INDIVIDUAL_EXPORT_TEMPLATES_v1.0 ]
+
+**Type**: Web Utility / DevOps Tool | **Status**: `STABLE`
+
+A specialized interface to generate granular installation scripts for Godot Export Templates.
+
+- **Tech:** Svelte, Godot.
+- **Key Features:**
+  - Per-platform granularity via custom mirror (individual assets).
+  - CI/CD optimized (direct wget/curl injection).
+`[ DEVLOG ]` | [Blog post](https://asdrome.com/posts/godot-individual-export-templates/)
+> `[ AVAILABLE ]` | [Access Tool](https://asdrome.github.io/godot-individual-export-templates/)
 
 ---
 
@@ -26,4 +34,4 @@ A web-tool to download granular installs of the official Godot Export Templates.
 | :------------------ | :------------------ |
 | **Active Projects** | 02                  |
 | **Build Status**    | All Systems Nominal |
-| **Last Sync**       | 2026-01-13          |
+| **Last Sync**       | 2026-01-17          |
