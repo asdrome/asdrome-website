@@ -29,7 +29,7 @@ const { id, title, pubilished } = Astro.props;
     </div>
     <div class="dash-line relative flex h-full w-[15%] items-center md:w-[10%]">
       <div
-        class="item-dot z-50 mx-auto h-1 w-1 rounded bg-[var(--text-color-lighten)] outline outline-4 outline-[var(--card-color)] transition-all"
+        class="item-dot z-50 mx-auto h-1 w-1 rounded-sm bg-[var(--text-color-lighten)] outline outline-4 outline-[var(--card-color)] transition-all"
       >
       </div>
     </div>
@@ -43,6 +43,7 @@ const { id, title, pubilished } = Astro.props;
   </a>
 
   <style>
+    @reference "../../styles/global.css";
     .date {
       font-family: var(--primary-font);
     }

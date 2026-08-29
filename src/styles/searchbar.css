@@ -1,3 +1,5 @@
+@reference "./global.css";
+
 .result-item:hover {
   @apply bg-[var(--primary-color-lighten)];
 }

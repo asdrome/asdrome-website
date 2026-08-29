@@ -115,7 +115,7 @@
       <input
         id="search-bar-input-mobile"
         name="search-bar-input-mobile"
-        class="text-[var(--text-color)] grow bg-transparent outline-none transition-all"
+        class="text-[var(--text-color)] grow bg-transparent outline-hidden transition-all"
         placeholder={i18n(I18nKeys.nav_bar_search_placeholder)}
         type="text"
         autocomplete="off"

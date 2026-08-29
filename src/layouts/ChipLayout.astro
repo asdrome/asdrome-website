@@ -10,7 +10,7 @@ export interface Props {
   }[];
   title?: string;
   subTitle?: string;
-  bannerImage?: string;
+  bannerImage?: ImageMetadata;
   slug?: string;
 }
 
@@ -42,6 +42,7 @@ const { chips, title, subTitle, bannerImage, slug } = Astro.props;
 </Main>
 
 <style>
+  @reference "../styles/global.css";
   .chip:hover .chip-name {
     @apply pl-2 text-[var(--primary-color)];
   }

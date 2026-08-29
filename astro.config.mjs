@@ -2,10 +2,11 @@ import { defineConfig } from "astro/config";
 
 import icon from "astro-icon";
 import sitemap from "@astrojs/sitemap";
-import tailwind from "@astrojs/tailwind";
+import tailwindcss from "@tailwindcss/vite";
 import svelte from "@astrojs/svelte";
 import swup from "@swup/astro";
 
+import { unified } from "@astrojs/markdown-remark";
 import rehypeSlug from "rehype-slug";
 import rehypeKatex from "rehype-katex";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
@@ -19,8 +20,10 @@ import pagefind from "astro-pagefind";
 // https://astro.build/config
 export default defineConfig({
   site: YukinaConfig.site,
+  vite: {
+    plugins: [tailwindcss()],
+  },
   integrations: [
-    tailwind(),
     svelte(),
     icon(),
     swup({
@@ -41,17 +44,19 @@ export default defineConfig({
     shikiConfig: {
       theme: "github-dark-default",
     },
-    remarkPlugins: [remarkReadingTime, remarkMath],
-    rehypePlugins: [
-      rehypeSlug,
-      rehypeKatex,
-      [
-        rehypeAutolinkHeadings,
-        {
-          behavior: "prepend",
-        },
+    processor: unified({
+      remarkPlugins: [remarkReadingTime, remarkMath],
+      rehypePlugins: [
+        rehypeSlug,
+        rehypeKatex,
+        [
+          rehypeAutolinkHeadings,
+          {
+            behavior: "prepend",
+          },
+        ],
       ],
-    ],
+    }),
   },
   image: {
     remotePatterns: [{ protocol: "https" }],

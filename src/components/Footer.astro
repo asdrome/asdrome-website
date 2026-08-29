@@ -29,7 +29,7 @@ if (!images[imagePath]) throw new Error(`"${imagePath}" does not exist in glob: 
           loading={"lazy"}
         />
         <div
-          class="absolute right-0 top-0 h-40 w-20 bg-gradient-to-l from-[var(--card-color)]"
+          class="absolute right-0 top-0 h-40 w-20 bg-linear-to-l from-[var(--card-color)]"
         >
         </div>
       </a>
@@ -123,7 +123,7 @@ if (!images[imagePath]) throw new Error(`"${imagePath}" does not exist in glob: 
               }
             </span>
           </a>
-          <div class="absolute bottom-0 flex h-11 w-full flex-row items-center justify-center bg-gradient-to-t from-[var(--card-color)] from-25% to-transparent backdrop-blur-sm">
+          <div class="absolute bottom-0 flex h-11 w-full flex-row items-center justify-center bg-linear-to-t from-[var(--card-color)] from-25% to-transparent backdrop-blur-sm">
             <a
               href="/categories/"
               class="flex flex-row items-center space-x-1 text-[var(--primary-color)] transition-colors hover:brightness-75 dark:hover:brightness-125"
@@ -161,7 +161,7 @@ if (!images[imagePath]) throw new Error(`"${imagePath}" does not exist in glob: 
       }
       {
         tagKeys.length >= YukinaConfig.maxFooterCategoryChip + 1 && (
-          <div class="absolute bottom-0 flex h-10 w-full flex-row items-center justify-center bg-gradient-to-t from-[var(--card-color)] from-25% to-transparent backdrop-blur-sm">
+          <div class="absolute bottom-0 flex h-10 w-full flex-row items-center justify-center bg-linear-to-t from-[var(--card-color)] from-25% to-transparent backdrop-blur-sm">
             <a
               href="/tags/"
               class="flex flex-row items-center space-x-1 text-[var(--primary-color)] transition-colors hover:brightness-75 dark:hover:brightness-125"
@@ -206,6 +206,7 @@ if (!images[imagePath]) throw new Error(`"${imagePath}" does not exist in glob: 
 </div>
 
 <style>
+  @reference "../styles/global.css";
   .link {
     @apply text-[var(--primary-color)] transition-all hover:brightness-110;
   }
