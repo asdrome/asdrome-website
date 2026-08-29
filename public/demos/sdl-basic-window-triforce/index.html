@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>SDL3 — Basic Window: Triforce · Asdrome Labs</title>
+  <style>
+    html,
+    body {
+      margin: 0;
+      height: 100%;
+      background: #0b0b10;
+      color: #e5e5e5;
+      font-family: system-ui, -apple-system, sans-serif;
+    }
+
+    #app {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      height: 100%;
+      padding: 12px;
+      box-sizing: border-box;
+    }
+
+    #canvas {
+      background: #000;
+      max-width: 100%;
+      cursor: pointer;
+      outline: none;
+    }
+
+    #progress {
+      display: none;
+      width: 240px;
+      height: 4px;
+      border-radius: 2px;
+      background: #222;
+      overflow: hidden;
+    }
+
+    #progress-bar {
+      width: 0%;
+      height: 100%;
+      background: #4f8cff;
+      transition: width 0.2s;
+    }
+
+    #status {
+      min-height: 1.2em;
+      font-size: 13px;
+      opacity: 0.7;
+    }
+
+    #fullscreen-btn {
+      background: #1c1c24;
+      color: #e5e5e5;
+      border: 1px solid #333;
+      border-radius: 8px;
+      font-size: 12px;
+      padding: 4px 12px;
+      cursor: pointer;
+    }
+
+    #fullscreen-btn:hover {
+      background: #26262f;
+    }
+
+    #site-link {
+      font-size: 11px;
+      opacity: 0.45;
+      text-decoration: none;
+      color: inherit;
+    }
+
+    #site-link:hover {
+      opacity: 0.8;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="app">
+    <canvas id="canvas" width="800" height="600"></canvas>
+    <div id="progress">
+      <div id="progress-bar"></div>
+    </div>
+    <div id="status">Loading…</div>
+    <button id="fullscreen-btn" type="button">⛶ Fullscreen</button>
+    <a id="site-link" href="/posts/sdl-basic-window-triforce/">← Back to article</a>
+  </div>
+
+  <script>
+    var Module = {
+      canvas: document.getElementById("canvas"),
+      setStatus: function (text) {
+        if (text) {
+          document.getElementById("status").textContent = text;
+        }
+      },
+      onProgress: function (e) {
+        var bar = document.getElementById("progress");
+        var fill = document.getElementById("progress-bar");
+        if (e && e.total > 0) {
+          bar.style.display = "block";
+          fill.style.width = (100 * e.loaded) / e.total + "%";
+        }
+      },
+    };
+  </script>
+  <script src="index.js"></script>
+
+  <script>
+    // SDL keyboard input needs the canvas focused — focus on click,
+    // and as soon as the runtime is ready.
+    var canvas = document.getElementById("canvas");
+    canvas.addEventListener("click", function () {
+      canvas.focus();
+    });
+    document
+      .getElementById("fullscreen-btn")
+      .addEventListener("click", function () {
+        if (document.documentElement.requestFullscreen) {
+          document.documentElement.requestFullscreen();
+        }
+      });
+    var _onRuntimeInitialized = Module.onRuntimeInitialized;
+    Module.onRuntimeInitialized = function () {
+      document.getElementById("status").textContent = "";
+      document.getElementById("progress").style.display = "none";
+      canvas.focus();
+      if (_onRuntimeInitialized) _onRuntimeInitialized.apply(this, arguments);
+    };
+  </script>
+</body>
+
+</html>

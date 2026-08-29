@@ -27,11 +27,20 @@ A specialized interface to generate granular installation scripts for Godot Expo
 `[ DEVLOG ]` | [Blog post](https://asdrome.com/posts/godot-individual-export-templates/)
 > `[ AVAILABLE ]` | [Access Tool](https://asdrome.github.io/godot-individual-export-templates/)
 
+### [ SERIES: SDL3_IN_BROWSER ]
+
+**Type:** `Emscripten / SDL3 Course Series` | **Status:** `IN_PROGRESS`
+
+A semester-long series of SDL examples compiled to the web with Emscripten — each entry is a runnable in-browser demo, starting from a basic window.
+
+* **Tech:** C, SDL3, Emscripten, WebAssembly
+* `[ PLAY ]` | [SDL3 Series](https://asdrome.com/categories/SDL3/)
+
 ---
 
 ### Lab Stats
 | Metric              | Value               |
 | :------------------ | :------------------ |
-| **Active Projects** | 02                  |
+| **Active Projects** | 03                  |
 | **Build Status**    | All Systems Nominal |
-| **Last Sync**       | 2026-01-17          |
+| **Last Sync**       | 2026-08-28          |
